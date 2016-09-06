@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dbutil;
+package controllers;
 
 import java.io.Reader;
-import java.util.List;
+import dbutil.Mapper;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -16,11 +16,11 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
  *
  * @author willyaguirre
  */
-public class DBUtil {
+public class Util {
     
     public static SqlSessionFactory factory = null;
         
-    public SqlSession runQuery() throws Exception {
+    public String getVersion() throws Exception {
         
         String resource = "mybatis/config.xml";
         Reader reader = null;
@@ -31,13 +31,18 @@ public class DBUtil {
         factory = new SqlSessionFactoryBuilder().build(reader);
         factory.getConfiguration().addMapper(Mapper.class);
         
-        return factory.openSession();
+        try {
+            session = factory.openSession();
+            String version = session.selectOne("getMySQLVersion");
+            return version;
+        } catch (Exception e) {
+            return e.getMessage();
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }  
         
     }
-    
-    public void close() throws Exception {
-        runQuery().commit();
-        runQuery().close();
-    };
     
 }
