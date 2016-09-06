@@ -13,10 +13,7 @@ import org.apache.ibatis.annotations.Select;
  *
  * @author willyaguirre
  */
-public interface Mapper {
-    
-    @Select("SELECT VERSION()")
-    public String getMySQLVersion();
+public interface AuthorMapper {
     
     @Select("SELECT * FROM Author")
     public List<Author> listAuthors();

@@ -6,7 +6,6 @@
 package dbutil;
 
 import java.io.Reader;
-import java.util.List;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -20,8 +19,8 @@ public class DBUtil {
     
     public static SqlSessionFactory factory = null;
         
-    public SqlSession runQuery() throws Exception {
-        
+    public SqlSession runQuery(String classMapperName) throws Exception {
+        Class classMapper = Class.forName(classMapperName);
         String resource = "mybatis/config.xml";
         Reader reader = null;
         SqlSession session = null;
@@ -29,15 +28,15 @@ public class DBUtil {
         reader = Resources.getResourceAsReader(resource);
 
         factory = new SqlSessionFactoryBuilder().build(reader);
-        factory.getConfiguration().addMapper(Mapper.class);
+        factory.getConfiguration().addMapper(classMapper);
         
         return factory.openSession();
         
     }
     
-    public void close() throws Exception {
-        runQuery().commit();
-        runQuery().close();
+    public void close(String classMapperName) throws Exception {
+        runQuery(classMapperName).commit();
+        runQuery(classMapperName).close();
     };
     
 }

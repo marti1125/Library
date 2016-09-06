@@ -18,8 +18,8 @@ public class Authors {
     DBUtil dbUtil = new DBUtil();
     
     public List<Author> listAuthors() throws Exception {
-        dbUtil.close();
-        return dbUtil.runQuery().selectList("listAuthors");
+        dbUtil.close("dbutil.AuthorMapper");
+        return dbUtil.runQuery("dbutil.AuthorMapper").selectList("listAuthors");
     }
     
 }

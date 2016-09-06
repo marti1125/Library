@@ -5,10 +5,8 @@
  */
 package app;
 
-import controllers.Authors;
 import static spark.Spark.*;
 import controllers.Books;
-import controllers.Util;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -26,12 +24,10 @@ public class App {
     public static void main(String[] args) throws Exception {
         
         Books book = new Books();
-        Util util = new Util();
         
         Map<String, Object> map = new HashMap<>();
         map.put("welcome", "Welcome to the System!!");
         map.put("listBooks", book.list());
-        map.put("mysqlversion", util.getVersion());
                 
         get("/", (req, res) ->  new ModelAndView(map, "index"), new JadeTemplateEngine());
         
