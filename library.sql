@@ -141,6 +141,7 @@ idUser int NOT NULL,
 idUniversity int NULL,
 idInstitute int NULL,
 PRIMARY KEY (idStudyCenterUser, idUser),
+FOREIGN KEY (idUser) REFERENCES User(idUser),
 FOREIGN KEY (idUniversity) REFERENCES University(idUniversity),
 FOREIGN KEY (idInstitute) REFERENCES Institute(idInstitute)
 );
