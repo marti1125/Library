@@ -19,7 +19,7 @@ public class Authors {
     
     public List<Author> listAuthors() throws Exception {
         dbUtil.close("dbutil.AuthorMapper");
-        return dbUtil.runQuery("dbutil.AuthorMapper").selectList("listAuthors");
+        return dbUtil.runQuery("dbutil.AuthorMapper").selectList("getUser");
     }
     
 }
