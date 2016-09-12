@@ -23,6 +23,8 @@ public class App {
     
     public static void main(String[] args) throws Exception {
         
+        staticFiles.location("/public");
+        
         Books book = new Books();
         
         Map<String, Object> map = new HashMap<>();
@@ -30,6 +32,8 @@ public class App {
         map.put("listBooks", book.list());
                 
         get("/", (req, res) ->  new ModelAndView(map, "index"), new JadeTemplateEngine());
+        
+        get("/login", (req, res) ->  new ModelAndView(map, "login"), new JadeTemplateEngine());
         
         get("/author", (req, res) ->  new AuthorView().index(), new JadeTemplateEngine());
         
