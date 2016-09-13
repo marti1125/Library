@@ -53,8 +53,7 @@ public class App {
             try {
                 user = users.login(req.queryParams("username"), req.queryParams("password"));
                 if(user != null){
-                    res.redirect("/");
-                    return null;
+                    return new Message("ok","ok");
                 } else {
                     return new Message("warning","The username or password is incorrect");
                 }
@@ -64,7 +63,6 @@ public class App {
             }
             return message;
         }, gson::toJson);
-        
         
     }
     
