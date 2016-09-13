@@ -5,6 +5,7 @@
  */
 package app;
 
+import com.google.gson.Gson;
 import static spark.Spark.*;
 import controllers.Books;
 import controllers.Users;
@@ -15,9 +16,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import models.User;
 import spark.ModelAndView;
-import spark.Request;
-import spark.Response;
 import spark.template.jade.JadeTemplateEngine;
+import utils.Message;
 import view.AuthorView;
 
 
@@ -30,6 +30,8 @@ public class App {
     public static void main(String[] args) throws Exception {
         
         staticFiles.location("/public");
+        
+        Gson gson = new Gson();
         
         Users users = new Users();
         
@@ -45,7 +47,8 @@ public class App {
         
         get("/author", (req, res) ->  new AuthorView().index(), new JadeTemplateEngine());
         
-        post("/secure", (Request req, Response res) ->  {
+        post("/secure", (req, res) -> {
+            Message message;
             User user;
             try {
                 user = users.login(req.queryParams("username"), req.queryParams("password"));
@@ -53,15 +56,15 @@ public class App {
                     res.redirect("/");
                     return null;
                 } else {
-                    res.redirect("/login");
-                    return null;
+                    return new Message("warning","The username or password is incorrect");
                 }
             } catch (Exception ex) {
-                res.redirect("/login");
+                message = new Message("danger","problem with connection to data base");
                 Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
             }
-            return null;
-        });
+            return message;
+        }, gson::toJson);
+        
         
     }
     

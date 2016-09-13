@@ -1,9 +1,22 @@
 extends layout/secure.jade
 
+block css
+  link(rel="stylesheet", href="css/signin.css")
+
 block content
   div.container
-    form.form-signin(action="secure", method="post")
+    .form-signin
       h2.form-signin-heading Please sign in
+      .alert.alert-warning#warningalert(role="alert").hide
+        button.close.timesclose(type="button", aria-label="Close")
+          span(aria-hidden="true") &times;
+        strong Warning!
+        #warningmessage
+      .alert.alert-danger#dangeralert(role="alert").hide
+        button.close.timesclose(type="button", aria-label="Close")
+          span(aria-hidden="true") &times;
+        strong Oh no!
+        #dangermessage
       label.sr-only(for="username") Email address
       input.form-control#username(type="text", name="username", placeholder="User", required, autofocus)
       label.sr-only(for="password") Password
@@ -12,4 +25,4 @@ block content
         label
           input(type="checkbox", value="remember-me")
           | Remember me
-      button.btn.btn-lg.btn-primary.btn-block(type="submit") Sign in
+      button.btn.btn-lg.btn-primary.btn-block#signin Sign in
