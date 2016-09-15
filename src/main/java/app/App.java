@@ -18,6 +18,7 @@ import models.User;
 import spark.ModelAndView;
 import spark.template.jade.JadeTemplateEngine;
 import utils.Message;
+import utils.ViewUtil;
 import view.AuthorView;
 
 
@@ -31,6 +32,8 @@ public class App {
         
         staticFiles.location("/public");
         
+        ViewUtil viewUtil = new ViewUtil();
+        
         Gson gson = new Gson();
         
         Users users = new Users();
@@ -40,10 +43,19 @@ public class App {
         Map<String, Object> map = new HashMap<>();
         map.put("welcome", "Welcome to the System!!");
         map.put("listBooks", book.list());
-                
-        get("/", (req, res) ->  new ModelAndView(map, "index"), new JadeTemplateEngine());
+        
+        get("/", (req, res) ->  {
+            return viewUtil.validate(req, res, map, "index");
+        });
         
         get("/login", (req, res) ->  new ModelAndView(map, "login"), new JadeTemplateEngine());
+        
+        get("/logout", (req, res) ->  {
+            req.session().attribute("logged", false);
+            req.session().attribute("user", null);
+            res.redirect("/login");
+            return null;   
+        });
         
         get("/author", (req, res) ->  new AuthorView().index(), new JadeTemplateEngine());
         
@@ -53,6 +65,8 @@ public class App {
             try {
                 user = users.login(req.queryParams("username"), req.queryParams("password"));
                 if(user != null){
+                    req.session().attribute("logged", true);
+                    req.session().attribute("user", user);
                     return new Message("ok","ok");
                 } else {
                     return new Message("warning","The username or password is incorrect");

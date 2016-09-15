@@ -1,8 +1,18 @@
-!!! 5
-html
-  head
-  body
-    h1 #{welcome}
-    ul
-      each val in listBooks
-        li= val
+extends layout/secure.jade
+
+block css
+  link(rel="stylesheet", href="css/app.css")
+
+block content
+  .container
+    .row
+      .col-xs-12.col-sm-12.col-md-3.col-lg-3.full_height
+        #menu
+          br
+          br
+          h4 User
+          ul.list-group
+            li.list-group-item
+              a(href="/logout") Logout
+      .col-xs-12.col-sm-12.col-md-3.col-lg-3.full_height
+        #content

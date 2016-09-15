@@ -109,7 +109,7 @@ CREATE TABLE User
 idUser int NOT NULL AUTO_INCREMENT,
 idKindofUser int NOT NULL,
 username varchar(45) NOT NULL,
-password varchar(45) NOT NULL,
+password varchar(250) NOT NULL,
 lastname varchar(50) NULL,
 motherslastname varchar(50) NULL,
 name varchar(100) NULL,
