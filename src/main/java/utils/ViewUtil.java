@@ -5,6 +5,7 @@
  */
 package utils;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,15 +20,20 @@ import spark.template.jade.JadeTemplateEngine;
  */
 public class ViewUtil {
  
-    public String validate(Request req, Response res, Map<String, Object> map, String templateName){
+    public String validate(Request req, Response res, Map<String, Object> map, String templateName) {
         boolean logged = ( req.session().attribute("logged") == null )? false : req.session().attribute("logged");
-        Logger.getLogger(ViewUtil.class.getName()).log(Level.INFO, "value:  "  + logged);
         if(logged){
+            map.put("user", getUser(req));
             return new JadeTemplateEngine().render(new ModelAndView(map, templateName));
         } else {
             res.redirect("/login");
             return null;
         }
+    }
+    
+    public String getUser(Request req) {
+        String userName = ( req.session().attribute("user").toString() == null )? "" : req.session().attribute("user").toString();
+        return userName;
     }
     
 }

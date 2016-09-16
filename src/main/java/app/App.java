@@ -66,7 +66,7 @@ public class App {
                 user = users.login(req.queryParams("username"), req.queryParams("password"));
                 if(user != null){
                     req.session().attribute("logged", true);
-                    req.session().attribute("user", user);
+                    req.session().attribute("user", user.getName());
                     return new Message("ok","ok");
                 } else {
                     return new Message("warning","The username or password is incorrect");
