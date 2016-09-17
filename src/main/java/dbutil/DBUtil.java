@@ -22,16 +22,10 @@ public class DBUtil {
     public SqlSession runQuery(String classMapperName) throws Exception {
         Class classMapper = Class.forName(classMapperName);
         String resource = "mybatis/config.xml";
-        Reader reader = null;
-        SqlSession session = null;
-
-        reader = Resources.getResourceAsReader(resource);
-
+        Reader reader = Resources.getResourceAsReader(resource);
         factory = new SqlSessionFactoryBuilder().build(reader);
         factory.getConfiguration().addMapper(classMapper);
-        
         return factory.openSession();
-        
     }
     
     public void close(String classMapperName) throws Exception {

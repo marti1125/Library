@@ -1,0 +1,20 @@
+html, body, .container_img {
+    height: 100%;
+    padding: 0px;
+    margin: 0px;
+}
+.container_img {
+  display: -webkit-flexbox;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+  justify-content: center;
+}
+
+.container_img > img {
+    width: 400px;
+}

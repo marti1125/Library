@@ -78,6 +78,14 @@ public class App {
             return message;
         }, gson::toJson);
         
+        get("*", (req, res) -> {
+            if(!req.pathInfo().startsWith("/public")){
+                res.status(404);
+                return new JadeTemplateEngine().render(new ModelAndView(new HashMap<>(), "404"));
+            }
+            return null;
+        });
+        
     }
     
 }
