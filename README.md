@@ -1,2 +1,2 @@
 # Library
-Web App
+SparkJava - Web App
