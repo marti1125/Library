@@ -2,8 +2,6 @@ package controllers;
 
 import dbutil.DBUtil;
 import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import models.User;
 import utils.Sha;
 

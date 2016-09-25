@@ -15,9 +15,11 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import models.User;
+import reports.UserReport;
 import spark.ModelAndView;
 import spark.template.jade.JadeTemplateEngine;
 import utils.Message;
+import utils.Render;
 import utils.ViewUtil;
 import view.AuthorView;
 
@@ -29,7 +31,7 @@ import view.AuthorView;
 public class App {
     
     public static void main(String[] args) throws Exception {
-        
+    
         staticFiles.location("/public");
         
         ViewUtil viewUtil = new ViewUtil();
@@ -77,6 +79,13 @@ public class App {
             }
             return message;
         }, gson::toJson);
+        
+        get("/report", (req, res) ->  {
+            UserReport uReport = new UserReport();
+            Render render = new Render();
+            Render.file(res, uReport.reportPDF(), "application/pdf", "users.pdf");
+            return "report";
+        });
         
         get("*", (req, res) -> {
             if(!req.pathInfo().startsWith("/public")){
