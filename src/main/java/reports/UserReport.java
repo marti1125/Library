@@ -8,12 +8,11 @@ package reports;
 import controllers.Authors;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import utils.Log;
 
 /**
  *
@@ -21,10 +20,11 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
  */
 public class UserReport {
     
-    public UserReport(){
-    }
+    public UserReport(){}
+    
+    Log log = new Log();
        
-    public static void report() throws Exception {
+    /*public static void report() throws Exception {
         Logger.getLogger(UserReport.class.getName()).log(Level.INFO, "START REPORT ...");
         String sourceFileName = "/Users/willyaguirre/NetBeansProjects/webapp/src/main/resources/reports/test.jasper";
         String printFileName;
@@ -42,21 +42,21 @@ public class UserReport {
         } catch (Exception e) {
             Logger.getLogger(UserReport.class.getName()).log(Level.SEVERE, e.getMessage());
         }
-    }
+    }*/
     
     public byte[] reportPDF() throws Exception {
         byte[] file = null;
-        Logger.getLogger(UserReport.class.getName()).log(Level.INFO, "START REPORT ...");
+        log.status("DEBUG", UserReport.class, "START REPORT ...");
         String sourceFileName = "/Users/willyaguirre/NetBeansProjects/webapp/src/main/resources/reports/test.jasper";
         Map<String, Object> parameters = new HashMap();
         try {
             Authors authors = new Authors();
             JRBeanCollectionDataSource data = new JRBeanCollectionDataSource(authors.listAuthors());
             JasperPrint print = JasperFillManager.fillReport(sourceFileName, parameters, data);
-            Logger.getLogger(UserReport.class.getName()).log(Level.INFO, "REPORT: " + print.getName());
+            log.status("DEBUG", UserReport.class, "REPORT: " + print.getName());
             file = JasperExportManager.exportReportToPdf(print);
         } catch (Exception e) {
-            Logger.getLogger(UserReport.class.getName()).log(Level.SEVERE, e.getMessage());
+            log.status("ERROR", UserReport.class, e.getMessage());
         }
         return file;
     }

@@ -5,10 +5,7 @@
  */
 package utils;
 
-import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;

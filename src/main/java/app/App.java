@@ -12,8 +12,6 @@ import controllers.Users;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import models.User;
 import reports.UserReport;
 import spark.ModelAndView;
@@ -22,7 +20,7 @@ import utils.Message;
 import utils.Render;
 import utils.ViewUtil;
 import view.AuthorView;
-
+import utils.Log;
 
 /**
  *
@@ -31,7 +29,9 @@ import view.AuthorView;
 public class App {
     
     public static void main(String[] args) throws Exception {
-    
+        
+        Log log = new Log();
+        
         staticFiles.location("/public");
         
         ViewUtil viewUtil = new ViewUtil();
@@ -75,7 +75,7 @@ public class App {
                 }
             } catch (Exception ex) {
                 message = new Message("danger","problem with connection to data base");
-                Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+                log.status("ERROR", App.class, message.getMessage());
             }
             return message;
         }, gson::toJson);

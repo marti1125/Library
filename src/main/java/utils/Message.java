@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
 package utils;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  *
@@ -12,6 +14,9 @@ package utils;
 public class Message {
     
     public String type;
+    
+    @Getter
+    @Setter
     public String message;
     
     public Message(String type, String message){

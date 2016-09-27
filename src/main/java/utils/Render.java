@@ -6,8 +6,6 @@
 package utils;
 
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.http.HttpServletResponse;
 import spark.Response;
 
@@ -17,8 +15,9 @@ import spark.Response;
  */
 public class Render {
     
-    public Render(){
-    }
+    public Render(){}
+    
+    Log log = new Log();
     
     public static void file(Response res,byte[] data, String fileType, String fileName) {
         try {
@@ -28,7 +27,7 @@ public class Render {
             httpServletResponse.getOutputStream().write(data);
             httpServletResponse.getOutputStream().close();
         } catch (IOException e) {
-            Logger.getLogger(Render.class.getName()).log(Level.SEVERE, e.getMessage());
+            Log.status("ERROR", Render.class, e.getMessage());
         }
     }
 
