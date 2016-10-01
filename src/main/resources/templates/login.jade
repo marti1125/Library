@@ -2,10 +2,13 @@ extends layout/main.jade
 
 block css
   link(rel="stylesheet", href="css/signin.css")
+  link(rel="stylesheet", href="css/util.css")
 
 block content
   div.container
     .form-signin
+      .center_content.marg-btm5px
+        img(src="image/library.png")
       h2.form-signin-heading Please sign in
       .alert.alert-warning#warningalert(role="alert").hide
         button.close.timesclose(type="button", aria-label="Close")

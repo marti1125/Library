@@ -1,2 +1,3 @@
-# Library
-SparkJava - Web App
+![library](library.png)
+
+### SparkJava - Web App
