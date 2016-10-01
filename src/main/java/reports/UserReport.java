@@ -20,7 +20,7 @@ public class UserReport {
     
     public byte[] reportPDF() throws Exception {
         Authors authors = new Authors();
-        String jasperFile = "/Users/willyaguirre/NetBeansProjects/webapp/src/main/resources/reports/test.jasper";
+        String jasperFile = "/Users/willyaguirre/NetBeansProjects/webapp/src/main/resources/reports/authors.jasper";
         return report.generate(jasperFile, authors.listAuthors());
     }
     
