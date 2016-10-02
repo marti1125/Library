@@ -2,6 +2,7 @@ package controllers;
 
 import dbutil.DBUtil;
 import java.util.HashMap;
+import java.util.List;
 import models.User;
 import utils.Sha;
 
@@ -18,6 +19,11 @@ import utils.Sha;
 public class Users {
     
     DBUtil dbUtil = new DBUtil();
+    
+    public List<User> users() throws Exception {
+        dbUtil.close("dbutil.UserMapper");
+        return dbUtil.runQuery("dbutil.UserMapper").selectList("users");
+    }
     
     public User login(String username, String password) throws Exception {
         Sha sha = new Sha();

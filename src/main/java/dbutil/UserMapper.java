@@ -1,6 +1,7 @@
 package dbutil;
 
 
+import java.util.List;
 import models.User;
 import org.apache.ibatis.annotations.Select;
 
@@ -15,6 +16,9 @@ import org.apache.ibatis.annotations.Select;
  * @author willyaguirre
  */
 public interface UserMapper {
+    
+    @Select("SELECT * FROM User")
+    List<User> users();
     
     @Select("SELECT * FROM User WHERE username = #{username} and password = #{password}")
     User getUser(String username, String password);

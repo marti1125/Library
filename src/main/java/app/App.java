@@ -87,6 +87,16 @@ public class App {
             return "report";
         });
         
+        /* CRUD */
+        get("/user", (req, res) ->  {
+            Map<String, Object> hMap = new HashMap<>();
+            return viewUtil.validate(req, res, hMap, "user");
+        });
+        
+        get("/users", (req, res) ->  {
+            return users.users();
+        }, gson::toJson);
+        
         get("*", (req, res) -> {
             if(!req.pathInfo().startsWith("/public")){
                 res.status(404);

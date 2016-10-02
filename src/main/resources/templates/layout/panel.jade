@@ -1,6 +1,7 @@
 doctype html
 html
   include head.jade
+  link(rel="stylesheet", href="css/backgrid.css")
   block css
   body
     .container-fluid
@@ -12,11 +13,14 @@ html
             h4 User: #{user}
             ul.list-group
               li.list-group-item
-                a(href="/users") Users
+                a(href="/user") Users
               li.list-group-item
                 a(href="/logout") Logout
         .col-xs-12.col-sm-12.col-md-3.col-lg-3.full_height
           #content
-          block content_action
+            block content_action
     include scripts.jade
+    script(src="js/underscore-min.js")
+    script(src="js/backbone-min.js")
+    script(src="js/backgrid.js")
     block script
